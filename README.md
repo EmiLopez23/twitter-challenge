@@ -4,7 +4,7 @@ This training project consists of taking a real project and adding, fixing, or i
 
 ## Challenges
 
-### Protected Routes
+### Protected Routes  [X]
 
 The objective of this feature is to add logic to protect certain routes that require an authenticated user to function. The following routes should be accessible to authenticated users:
 

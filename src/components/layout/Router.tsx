@@ -12,7 +12,7 @@ import CommentPage from "../../pages/create-comment-page/CommentPage";
 import PostPage from "../../pages/post-page/PostPage";
 
 const Protected = () => {
-  return localStorage.getItem("token") ? <Outlet /> : <SignInPage />;
+  return localStorage.getItem("token") ? <Outlet /> : <SignInPage /> ;
 }
 
 const WithNav = () => {
