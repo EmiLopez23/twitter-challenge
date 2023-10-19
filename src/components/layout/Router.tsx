@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { StyledSideBarPageWrapper } from "../../pages/side-bar-page/SideBarPageWrapper";
 import NavBar from "../navbar/NavBar";
 import SignUpPage from "../../pages/auth/sign-up/SignUpPage";
@@ -10,10 +10,15 @@ import ProfilePage from "../../pages/profile/ProfilePage";
 import TweetPage from "../../pages/create-tweet-page/TweetPage";
 import CommentPage from "../../pages/create-comment-page/CommentPage";
 import PostPage from "../../pages/post-page/PostPage";
+import { ROUTES } from "../../util/Constants";
 
 const Protected = () => {
-  return localStorage.getItem("token") ? <Outlet /> : <SignInPage /> ;
-}
+  return localStorage.getItem("token") ? (
+    <Outlet />
+  ) : (
+    <Navigate to={ROUTES.SIGN_IN} />
+  );
+};
 
 const WithNav = () => {
   return (
@@ -26,11 +31,11 @@ const WithNav = () => {
 
 export const ROUTER = createBrowserRouter([
   {
-    path: "/sign-up",
+    path: ROUTES.SIGN_UP,
     element: <SignUpPage />,
   },
   {
-    path: "/sign-in",
+    path: ROUTES.SIGN_IN,
     element: <SignInPage />,
   },
   {
@@ -40,23 +45,23 @@ export const ROUTER = createBrowserRouter([
         element: <WithNav />,
         children: [
           {
-            path: "/",
+            path: ROUTES.HOME,
             element: <HomePage />,
           },
           {
-            path: "/recommendations",
+            path: ROUTES.RECOMMENDATIONS,
             element: <RecommendationPage />,
           },
           {
-            path: "/profile/:id",
+            path: `${ROUTES.PROFILE}/:id`,
             element: <ProfilePage />,
           },
           {
-            path: "/post/:id",
+            path: `${ROUTES.POST}/:id`,
             element: <PostPage />,
           },
           {
-            path: "/compose/tweet",
+            path: ROUTES.TWEET,
             element: <TweetPage />,
           },
           {
@@ -64,7 +69,7 @@ export const ROUTER = createBrowserRouter([
             element: <CommentPage />,
           },
         ],
-      }
-    ]
+      },
+    ],
   },
 ]);
