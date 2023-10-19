@@ -12,11 +12,19 @@ import CommentPage from "../../pages/create-comment-page/CommentPage";
 import PostPage from "../../pages/post-page/PostPage";
 import { ROUTES } from "../../util/Constants";
 
-const Protected = () => {
+const ProtectedRoute = () => {
   return localStorage.getItem("token") ? (
     <Outlet />
   ) : (
     <Navigate to={ROUTES.SIGN_IN} />
+  );
+};
+
+const AuthRoute = () => {
+  return localStorage.getItem("token") ? (
+    <Navigate to={ROUTES.HOME} />
+  ) : (
+    <Outlet />
   );
 };
 
@@ -31,15 +39,20 @@ const WithNav = () => {
 
 export const ROUTER = createBrowserRouter([
   {
-    path: ROUTES.SIGN_UP,
-    element: <SignUpPage />,
+    element: <AuthRoute />,
+    children: [
+      {
+        path: ROUTES.SIGN_UP,
+        element: <SignUpPage />,
+      },
+      {
+        path: ROUTES.SIGN_IN,
+        element: <SignInPage />,
+      },
+    ],
   },
   {
-    path: ROUTES.SIGN_IN,
-    element: <SignInPage />,
-  },
-  {
-    element: <Protected />,
+    element: <ProtectedRoute />,
     children: [
       {
         element: <WithNav />,

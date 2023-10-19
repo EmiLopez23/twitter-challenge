@@ -8,9 +8,10 @@ import LabeledInput from "../../../components/labeled-input/LabeledInput";
 import Button from "../../../components/button/Button";
 import { ButtonType } from "../../../components/button/StyledButton";
 import { StyledH3 } from "../../../components/common/text";
+import { ROUTES } from "../../../util/Constants";
 
 const SignInPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
@@ -18,10 +19,10 @@ const SignInPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     httpRequestService
-      .signIn({ email, password })
-      .then(() => navigate("/"))
+      .signIn({ username, password })
+      .then(() => navigate(ROUTES.HOME))
       .catch(() => setError(true));
   };
 
@@ -39,7 +40,7 @@ const SignInPage = () => {
               placeholder={"Enter user..."}
               title={t("input-params.username")}
               error={error}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <LabeledInput
               type="password"
