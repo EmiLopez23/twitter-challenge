@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHttpRequestService } from "../service/HttpRequestService";
 import { Author } from "../service";
+import { setUser } from "../redux/user";
 
 interface UseGetRecommendationsProps {
   page: number;
@@ -14,31 +15,21 @@ export const useGetRecommendations = ({ page }: UseGetRecommendationsProps) => {
   const service = useHttpRequestService();
 
   const getUsers = async () => {
-    return await service.getRecommendedUsers(10, page);
+    try{
+      const users = await service.getRecommendedUsers(10, page);
+      users.length === 0 
+      ? setHasMore(false)
+      : setUser((prev:Author[]) => [...prev, ...users]);
+    }catch(error){
+      setError(true);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (page !== undefined && hasMore) {
       setLoading(true);
-      getUsers()
-        .then((response) => {
-          if (response.length === 0) {
-            setHasMore(false);
-          } else {
-            setUsers((prev) => {
-              const uniqueIds = new Set(prev.map((user) => user.id));
-              const filteredUsers = response.filter(
-                (user: Author) => !uniqueIds.has(user.id)
-              );
-              return [...prev, ...filteredUsers];
-            });
-          }
-          setLoading(false);
-        })
-        .catch((e) => {
-          setError(e);
-          setLoading(false);
-        });
+      getUsers().then(()=>setLoading(false));
     }
   }, [page, hasMore]);
 
