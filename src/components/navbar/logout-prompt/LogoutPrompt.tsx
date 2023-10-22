@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SwitchButton from "../../switch/SwitchButton";
 import { ButtonType } from "../../button/StyledButton";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { StyledPromptContainer } from "./PromptContainer";
 import { StyledContainer } from "../../common/Container";
 import { StyledP } from "../../common/text";
+import { setToken } from "../../../redux/user";
+import { ROUTES } from "../../../util/Constants";
 
 interface LogoutPromptProps {
   show: boolean;
@@ -19,6 +21,7 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
   const [showPrompt, setShowPrompt] = useState<boolean>(show);
   const [showModal, setShowModal] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.user);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const handleClick = () => {
@@ -34,8 +37,8 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/sign-in");
+    dispatch(setToken(""))
+    navigate(ROUTES.SIGN_IN);
   };
 
   useEffect(() => {

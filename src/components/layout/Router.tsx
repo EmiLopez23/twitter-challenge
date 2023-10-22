@@ -11,9 +11,12 @@ import TweetPage from "../../pages/create-tweet-page/TweetPage";
 import CommentPage from "../../pages/create-comment-page/CommentPage";
 import PostPage from "../../pages/post-page/PostPage";
 import { ROUTES } from "../../util/Constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const ProtectedRoute = () => {
-  return localStorage.getItem("token") ? (
+  const token = useSelector((state: RootState) => state.user.token);
+  return token ? (
     <Outlet />
   ) : (
     <Navigate to={ROUTES.SIGN_IN} />
@@ -21,7 +24,8 @@ const ProtectedRoute = () => {
 };
 
 const AuthRoute = () => {
-  return localStorage.getItem("token") ? (
+  const token = useSelector((state: RootState) => state.user.token);
+  return token ? (
     <Navigate to={ROUTES.HOME} />
   ) : (
     <Outlet />
@@ -78,7 +82,7 @@ export const ROUTER = createBrowserRouter([
             element: <TweetPage />,
           },
           {
-            path: "/post/:id",
+            path: `${ROUTES.POST}/:id`,
             element: <CommentPage />,
           },
         ],

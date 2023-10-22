@@ -9,9 +9,11 @@ import LabeledInput from "../../../components/labeled-input/LabeledInput";
 import Button from "../../../components/button/Button";
 import { ButtonType } from "../../../components/button/StyledButton";
 import { StyledH3 } from "../../../components/common/text";
+import { ROUTES } from "../../../util/Constants";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setToken } from "../../../redux/user";
 
 interface SignUpData {
-  name: string;
   username: string;
   email: string;
   password: string;
@@ -22,6 +24,7 @@ const SignUpPage = () => {
   const [error, setError] = useState(false);
 
   const httpRequestService = useHttpRequestService();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -31,10 +34,13 @@ const SignUpPage = () => {
     };
   const handleSubmit = async () => {
     const { confirmPassword, ...requestData } = data;
-    httpRequestService
-      .signUp(requestData)
-      .then(() => navigate("/"))
-      .catch(() => setError(false));
+    try{
+      const token = await httpRequestService.signUp(requestData)
+      dispatch(setToken(token))
+      navigate(ROUTES.HOME)
+    }catch(error){
+      setError(true)
+    }
   };
 
   return (
@@ -46,13 +52,6 @@ const SignUpPage = () => {
             <StyledH3>{t("title.register")}</StyledH3>
           </div>
           <div className={"input-container"}>
-            <LabeledInput
-              required
-              placeholder={"Enter name..."}
-              title={t("input-params.name")}
-              error={error}
-              onChange={handleChange("name")}
-            />
             <LabeledInput
               required
               placeholder={"Enter username..."}
