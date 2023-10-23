@@ -13,9 +13,10 @@ import PostPage from "../../pages/post-page/PostPage";
 import { ROUTES } from "../../util/Constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 const ProtectedRoute = () => {
-  const token = useSelector((state: RootState) => state.user.token);
+  const token = useAppSelector((state) => state.user.token);
   return token ? (
     <Outlet />
   ) : (
@@ -24,7 +25,7 @@ const ProtectedRoute = () => {
 };
 
 const AuthRoute = () => {
-  const token = useSelector((state: RootState) => state.user.token);
+  const token = useAppSelector((state) => state.user.token);
   return token ? (
     <Navigate to={ROUTES.HOME} />
   ) : (

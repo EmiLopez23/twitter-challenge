@@ -13,6 +13,7 @@ import { StyledContainer } from "../common/Container";
 import { StyledButtonContainer } from "./ButtonContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 interface TweetBoxProps {
   parentId?: string;
@@ -26,7 +27,7 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
   const [images, setImages] = useState<File[]>([]);
   const [imagesPreview, setImagesPreview] = useState<string[]>([]);
 
-  const { user, length, query } = useSelector((state: RootState) => state.user);
+  const { user, length, query } = useAppSelector((state) => state.user);
   const httpService = useHttpRequestService();
   const dispatch = useDispatch();
   const { t } = useTranslation();
