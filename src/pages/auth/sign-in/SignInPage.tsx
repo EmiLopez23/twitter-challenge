@@ -22,16 +22,14 @@ const SignInPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleSubmit = async() => {
-    try{
-      const token = await httpRequestService.signIn({ username, password })
-      localStorage.setItem("token", token)
-      dispatch(setToken(token))
-      navigate(ROUTES.HOME)
-    }catch(error){
-      setError(true)
+  const handleSubmit = async () => {
+    try {
+      const { token } = await httpRequestService.signIn({ username, password });
+      dispatch(setToken(token));
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      setError(true);
     }
-  
   };
 
   return (
