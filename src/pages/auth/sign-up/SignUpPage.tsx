@@ -82,6 +82,7 @@ const SignUpPage = () => {
               error={error}
               onChange={handleChange("confirmPassword")}
             />
+            <p className={"error-message"}>{error && t("error.register")}</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Button

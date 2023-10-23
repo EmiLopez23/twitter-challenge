@@ -49,10 +49,10 @@ The objective of this task is to improve the Axios services. The previous develo
 
 **Why is it important?** In order to reduce the duplicated lines, we need to know when and how to reduce them.
 
-### Bug Hunting time
+### Bug Hunting time [X]
 
 The objective of this task is to fix 2 bugs that the app has.
-1. We are not checking that the user already exists when registering.
+1. We are not checking that the user already exists when registering. [x]
 2. The menus (those kind of floating containers) when users click out of them, they are not closing.
 
 ### Validation
