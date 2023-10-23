@@ -4,6 +4,7 @@ import { S3Service } from "./S3Service";
 import { ROUTES } from "../util/Constants";
 import { store } from "../redux/store";
 import { setToken } from "../redux/user";
+import { log } from "console";
 
 const url = process.env.REACT_APP_API_URL || "https://twitter-ieea.onrender.com/api"
 
@@ -12,7 +13,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(function (config) {
-  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  config.headers.Authorization = `Bearer ${store.getState().user.token}`;
   return config;
 });
 
@@ -20,8 +21,8 @@ api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      //store.dispatch(setToken(""))
-      //window.location.href = ROUTES.SIGN_IN
+      store.dispatch(setToken(""))
+      window.location.href = ROUTES.SIGN_IN
     }
   }
 )
