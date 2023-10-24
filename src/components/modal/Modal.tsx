@@ -26,7 +26,7 @@ const Modal = ({
   return (
     <>
       {show && (
-        <StyledBlurredBackground>
+        <StyledBlurredBackground onClick={onClose}>
           <StyledModalContainer>
             <StyledContainer alignItems={"center"} justifyContent={"center"}>
               {img && (

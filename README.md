@@ -4,7 +4,7 @@ This training project consists of taking a real project and adding, fixing, or i
 
 ## Challenges
 
-### Protected Routes  [X]
+### Protected Routes [X]
 
 The objective of this feature is to add logic to protect certain routes that require an authenticated user to function. The following routes should be accessible to authenticated users:
 
@@ -43,7 +43,7 @@ The objective of this task is to read and comprehend how class components functi
 
 ### Don’t repeat yourself, STUPID (Opss, that was KISS) [X]
 
-The objective of this task is to improve the Axios services. The previous developers have repeated the headers so many times. At the same time, we need to provide some logic where if we detect an error 401 (Unauthorized), you should log out the current user. 
+The objective of this task is to improve the Axios services. The previous developers have repeated the headers so many times. At the same time, we need to provide some logic where if we detect an error 401 (Unauthorized), you should log out the current user.
 
 **Sirius Tip:** Read about interceptors ;)
 
@@ -52,8 +52,9 @@ The objective of this task is to improve the Axios services. The previous develo
 ### Bug Hunting time [X]
 
 The objective of this task is to fix 2 bugs that the app has.
+
 1. We are not checking that the user already exists when registering. [x]
-2. The menus (those kind of floating containers) when users click out of them, they are not closing.
+2. The menus (those kind of floating containers) when users click out of them, they are not closing. [x]
 
 ### Validation
 

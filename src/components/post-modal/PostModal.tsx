@@ -13,7 +13,7 @@ export const PostModal = ({ onClose, show, children }: PostModalProps) => {
   return (
     <>
       {show && (
-        <StyledBlurredBackground>
+        <StyledBlurredBackground onClick={onClose}>
           <StyledTweetModalContainer>
             <ModalCloseButton onClick={onClose} />
             {children}
