@@ -36,7 +36,14 @@
   },
   "error": {
     "login": "Lo siento, tu nombre de usuario o contraseña es incorrecto. Por favor, inténtalo de nuevo.",
-    "register": "Lo siento, ya existe un usuario con este nombre o correo electrónico. Por favor, inténtalo de nuevo."
+    "register": "Lo siento, ya existe un usuario con este nombre o correo electrónico. Por favor, inténtalo de nuevo.",
+    "confirm-password": "Las contraseñas no coinciden.",
+    "email": "Email Invalido.",
+    "username": "Nombre de usuario invalido.",
+    "required": "Este campo es obligatorio."
+  },
+  "validation": {
+    "password": "La contraseña debe contener por lo menos 8 caracteres, incluidas letras, números y símbolos."
   },
   "input-params": {
     "username": "Nombre de usuario",

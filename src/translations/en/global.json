@@ -34,7 +34,14 @@
   },
   "error": {
     "login": "Sorry, your username or password was incorrect. Please try again.",
-    "register": "Sorry, your username or email is already taken. Please try another one."
+    "register": "Sorry, your username or email is already taken. Please try another one.",
+    "confirm-password": "Passwords does not match. Please try again.",
+    "email": "Enter a valid email address.",
+    "username": "Enter a valid username.",
+    "required": "This field is required."
+  },
+  "validation": {
+    "password": "Password must contain at least 8 characters, including letters, numbers and symbols."
   },
   "input-params": {
     "username": "Username",

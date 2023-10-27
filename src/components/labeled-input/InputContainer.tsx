@@ -15,7 +15,7 @@ export const StyledInputContainer = styled.div`
   }
 
   @media (min-width: 600px) {
-    width: 337px;
+    min-width: 337px;
 
     &.active-div {
       width: 415px;
