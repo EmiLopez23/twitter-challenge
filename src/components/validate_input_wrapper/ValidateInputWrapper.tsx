@@ -26,18 +26,6 @@ const ValidateInputWrapper = (props: TextFieldProps & FieldHookConfig<string>) =
   } = props;
   const [field, meta] = useField(props);
   const helperTextFinal = meta.error ?? helperText;
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [focus, setFocus] = useState(false);
-
-  const handleFocus = () => {
-    setFocus(true);
-  };
-
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
   return (
     <>
     <LabeledInput title={title} placeholder={placeholder} error={error || !!meta.error} onChange={field.onChange} name={name} required={false} type={type}/>
