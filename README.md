@@ -62,11 +62,11 @@ The objective of this task is to add some validations to the input fields that t
 
 **Why is it important?** As a frontend, you are always in front of the end user, that’s why you have to help them to know what's going on, and why it's failing if they encounter an input error.
 
-### Style it
+### Style it [X]
 
 The objective of this task is to update some style files into styledComponents one. You will see that this technology is being used in almost every file in the project.
 
-- **Component**: /components/follow-user/FollowUserBox.css
+- **Component**: /components/follow-user/FollowUserBox.css [x]
 - **Component**: /components/user-data-box/UserDataBox.css
 
 After that, you have to create from scratch a button and an input field, and should support variants, states, and sizes.
