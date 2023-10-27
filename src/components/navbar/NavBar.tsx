@@ -109,7 +109,7 @@ const NavBar = () => {
           alignItems={"center"}
         >
           <StyledContainer padding={"4px 0"} gap={"4px"}>
-            <StyledP primary>{user.name}</StyledP>
+            <StyledP primary>{user.name ?? "Name"}</StyledP>  
             <StyledP primary={false}>{`@${user.username}`}</StyledP>
           </StyledContainer>
           <ThreeDots onClick={handleLogout} />
