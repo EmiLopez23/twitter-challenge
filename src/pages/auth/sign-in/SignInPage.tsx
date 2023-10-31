@@ -6,7 +6,7 @@ import { useHttpRequestService } from "../../../service/HttpRequestService";
 import AuthWrapper from "../AuthWrapper";
 import LabeledInput from "../../../components/labeled-input/LabeledInput";
 import Button from "../../../components/button/Button";
-import { ButtonType } from "../../../components/button/StyledButton";
+import { ButtonSize, ButtonType } from "../../../components/button/StyledButton";
 import { StyledH3 } from "../../../components/common/text";
 import { ROUTES } from "../../../util/Constants";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -85,12 +85,12 @@ const SignInPage = () => {
                 <Button
                   text={t("buttons.login")}
                   buttonType={ButtonType.FOLLOW}
-                  size={"MEDIUM"}
+                  size={ButtonSize.MEDIUM}
                 />
                 <Button
                   text={t("buttons.register")}
                   buttonType={ButtonType.OUTLINED}
-                  size={"MEDIUM"}
+                  size={ButtonSize.MEDIUM}
                   onClick={() => navigate("/sign-up")}
                 />
               </div>

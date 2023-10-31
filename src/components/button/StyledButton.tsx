@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { CSSObject, ThemeProps, ThemedStyledProps } from "styled-components";
 import "@fontsource/manrope";
+import { Theme } from "../../util/LightTheme";
 
 interface ButtonProps {
-  size: string;
+  size: ButtonSize;
   buttonType: ButtonType;
 }
 export enum ButtonType {
@@ -12,34 +13,77 @@ export enum ButtonType {
   OUTLINED = "OUTLINED",
   DISABLED = "DISABLED",
 }
+
+export enum ButtonSize {
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE",
+}
+
+const getButtonTypeStyles = (theme:Theme):Record<ButtonType,CSSObject> => ({
+  DEFAULT:{
+    background: theme.colors.main,
+    color: theme.colors.white,
+    border:"none",
+    ":hover":{
+      background: theme.hover.default
+    }
+  },
+  FOLLOW :{
+    background: theme.colors.black,
+    color: theme.colors.white,
+    border:"none",
+    ":hover":{
+      background: theme.hover.follow
+    }
+  },
+  DELETE : {
+    background: theme.colors.error,
+    color: theme.colors.white,
+    border:"none",
+    ":hover":{
+      background: theme.hover.error
+    }
+  },
+  OUTLINED : {
+    background: theme.colors.white,
+    border: `1px solid ${theme.colors.outline}`,
+    color: theme.colors.black,
+    ":hover":{
+      background: theme.hover.outlined
+    }
+  },
+  DISABLED : {
+    background: theme.colors.light,
+    color: theme.colors.white,
+    border:"none",
+    ":hover":{
+      background: theme.hover.disabled
+    }
+  },
+});
+
+const getButtonSizeStyles = (theme:Theme): Record<ButtonSize, CSSObject> => ({
+  SMALL: {
+    padding: "8px 16px",
+  },
+  MEDIUM: {
+    padding: "8px 80px",
+  },
+  LARGE: {
+    padding: "8px 192px",
+  }
+});
+
 export const StyledButton = styled.button<ButtonProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
+    padding: ${(props) => getButtonSizeStyles(props.theme)[props.size].padding};
     gap: 8px;
     margin-bottom: 8px;
-    width: ${(props) => props.size};
-    height: 33px;
-    left: 16px;
-    top: 16px;
 
-    background: ${(props) => {
-      switch (props.buttonType) {
-        case "DEFAULT":
-          return props.theme.colors.main;
-        case "FOLLOW":
-          return props.theme.colors.black;
-        case "DELETE":
-          return props.theme.colors.error;
-        case "OUTLINED":
-          return props.theme.colors.white;
-        case "DISABLED":
-          return props.theme.colors.light;
-        default:
-          return props.theme.colors.main;
-      }
-    }};
+    background: ${(props) => getButtonTypeStyles(props.theme)[props.buttonType].background};
     border-radius: 40px;
 
     /* Button */
@@ -49,15 +93,9 @@ export const StyledButton = styled.button<ButtonProps>`
     font-size: 15px;
     line-height: 110%;
 
-    border: ${(props) =>
-      props.buttonType === "OUTLINED"
-        ? `1px solid ${props.theme.colors.outline}`
-        : "none"};
+    border: ${(props) => getButtonTypeStyles(props.theme)[props.buttonType].border};
 
-    color: ${(props) =>
-      props.buttonType === "OUTLINED"
-        ? props.theme.colors.black
-        : props.theme.colors.white};
+    color: ${(props) => getButtonTypeStyles(props.theme)[props.buttonType].color};
 
     text-align: center;
 
@@ -70,19 +108,6 @@ export const StyledButton = styled.button<ButtonProps>`
     }
 
     &:hover {
-        background: ${(props) => {
-          switch (props.buttonType) {
-            case ButtonType.DEFAULT:
-              return props.theme.hover.default;
-            case ButtonType.FOLLOW:
-              return props.theme.hover.follow;
-            case ButtonType.DELETE:
-              return props.theme.hover.error;
-            case ButtonType.OUTLINED:
-              return props.theme.hover.outlined;
-            case ButtonType.DISABLED:
-              return props.theme.hover.disabled;
-          }
-        }}
+        ${(props) => getButtonTypeStyles(props.theme)[props.buttonType][":hover"]}
 `;
 export default StyledButton;

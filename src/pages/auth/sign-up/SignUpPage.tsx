@@ -7,7 +7,10 @@ import { useTranslation } from "react-i18next";
 import AuthWrapper from "../../../pages/auth/AuthWrapper";
 import { useHttpRequestService } from "../../../service/HttpRequestService";
 import Button from "../../../components/button/Button";
-import { ButtonType } from "../../../components/button/StyledButton";
+import {
+  ButtonSize,
+  ButtonType,
+} from "../../../components/button/StyledButton";
 import { StyledH3 } from "../../../components/common/text";
 import { ROUTES } from "../../../util/Constants";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -116,12 +119,12 @@ const SignUpPage = () => {
                 <Button
                   text={t("buttons.register")}
                   buttonType={ButtonType.FOLLOW}
-                  size={"MEDIUM"}
+                  size={ButtonSize.MEDIUM}
                 />
                 <Button
                   text={t("buttons.login")}
                   buttonType={ButtonType.OUTLINED}
-                  size={"MEDIUM"}
+                  size={ButtonSize.MEDIUM}
                   onClick={() => navigate(ROUTES.SIGN_IN)}
                 />
               </div>
