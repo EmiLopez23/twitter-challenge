@@ -10,6 +10,7 @@ interface InputWithLabelProps {
   required: boolean;
   error?: boolean;
   name: string;
+  disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -21,6 +22,7 @@ const LabeledInput = ({
   onChange,
   name,
   type = "text",
+  disabled = false,
 }: InputWithLabelProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focus, setFocus] = useState(false);
@@ -41,7 +43,7 @@ const LabeledInput = ({
 
   return (
     <StyledInputContainer
-      className={`${error ? "error" : ""}`}
+      className={`${error ? "error" : ""} ${disabled ? "disabled" : ""}`}
       onClick={handleClick}
     >
       <StyledInputTitle
@@ -59,6 +61,7 @@ const LabeledInput = ({
         onChange={onChange}
         className={error ? "error" : ""}
         ref={inputRef}
+        disabled={disabled}
       />
     </StyledInputContainer>
   );

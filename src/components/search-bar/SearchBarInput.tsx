@@ -24,4 +24,9 @@ export const StyledSearchBarInput = styled.input`
     outline: 1px solid ${(props) => props.theme.colors.main};
     background: ${(props) => props.theme.background};
   }
+
+  &:disabled {
+    background-color: ${(props) => props.theme.colors.white};
+    border: 1px solid ${(props) => props.theme.colors.outline};
+  }
 `;

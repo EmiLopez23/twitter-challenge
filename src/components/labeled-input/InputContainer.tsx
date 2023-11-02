@@ -14,6 +14,10 @@ export const StyledInputContainer = styled.div`
     border: 1px solid ${(props) => props.theme.colors.error};
   }
 
+  &.disabled {
+    background-color: ${(props) => props.theme.colors.disabled};
+  }
+
   @media (min-width: 600px) {
     min-width: 337px;
 
