@@ -4,7 +4,8 @@ import { Author } from "../../service";
 import { useHttpRequestService } from "../../service/HttpRequestService";
 import { useTranslation } from "react-i18next";
 import { StyledSearchBarContainer } from "./SearchBarContainer";
-import { StyledSearchBarInput } from "./SearchBarInput";
+import CustomField from "../input-element/CustomField";
+import { InputContainerMode } from "../input-element/StyledInputContainer";
 
 export const SearchBar = () => {
   const [results, setResults] = useState<Author[]>([]);
@@ -31,7 +32,10 @@ export const SearchBar = () => {
 
   return (
     <StyledSearchBarContainer>
-      <StyledSearchBarInput
+      <CustomField
+        mode={InputContainerMode.ROUNDED}
+        required={false}
+        name="search"
         onChange={handleChange}
         value={query}
         placeholder={t("placeholder.search")}

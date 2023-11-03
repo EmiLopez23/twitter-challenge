@@ -13,7 +13,7 @@ const Button = ({ text, size, buttonType, onClick, disabled }: ButtonProps) => {
     <StyledButton
       size={size}
       buttonType={disabled ? ButtonType.DISABLED : buttonType}
-      disabled={buttonType === "DISABLED" || (disabled ? disabled : false)}
+      disabled={buttonType === ButtonType.DISABLED || (disabled ? disabled : false)}
       onClick={onClick}
     >
       {text}

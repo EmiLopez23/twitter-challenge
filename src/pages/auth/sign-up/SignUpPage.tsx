@@ -85,6 +85,8 @@ const SignUpPage = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            validateOnBlur={false}
+            validateOnChange={false}
           >
             <Form>
               <div className={"input-container"}>

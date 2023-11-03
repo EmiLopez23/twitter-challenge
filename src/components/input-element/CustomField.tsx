@@ -1,21 +1,31 @@
-import React, { ChangeEvent, useRef, useState } from "react";
-import { StyledInputContainer } from "./InputContainer";
-import { StyledInputTitle } from "./InputTitle";
+import { useRef, useState, ChangeEvent } from "react";
+import {
+  InputContainerMode,
+  StyledInputContainer,
+} from "./StyledInputContainer";
 import { StyledInputElement } from "./StyledInputElement";
+import { type } from "os";
+import { StyledInputLabel } from "./StyledInputLabel";
 
-interface InputWithLabelProps {
-  type?: "password" | "text";
-  title: string;
+interface CustomFieldProps {
+  mode: InputContainerMode;
+  label?: string;
   placeholder: string;
+  value?: string;
   required: boolean;
   error?: boolean;
   name: string;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  type?: "password" | "text";
+  LeftIcon?: React.ComponentType;
+  RightIcon?: React.ComponentType;
 }
 
-const LabeledInput = ({
-  title,
+const CustomField = ({
+  mode,
+  label,
+  value,
   placeholder,
   required,
   error,
@@ -23,7 +33,9 @@ const LabeledInput = ({
   name,
   type = "text",
   disabled = false,
-}: InputWithLabelProps) => {
+  LeftIcon,
+  RightIcon,
+}: CustomFieldProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focus, setFocus] = useState(false);
 
@@ -40,20 +52,26 @@ const LabeledInput = ({
       inputRef.current.focus();
     }
   };
-
   return (
     <StyledInputContainer
-      className={`${error ? "error" : ""} ${disabled ? "disabled" : ""}`}
+      mode={mode}
+      className={`${error ? "error" : ""} ${disabled ? "disabled" : ""}${
+        focus ? "active" : ""
+      }`}
       onClick={handleClick}
     >
-      <StyledInputTitle
-        className={`${focus ? "active-label" : ""} ${error ? "error" : ""}`}
-      >
-        {title}
-      </StyledInputTitle>
+      {label && (
+        <StyledInputLabel
+          className={`${focus ? "active" : ""} ${error ? "error" : ""}`}
+        >
+          {label}
+        </StyledInputLabel>
+      )}
+      {LeftIcon && <LeftIcon />}
       <StyledInputElement
         type={type}
         name={name}
+        value={value}
         required={required}
         placeholder={placeholder}
         onFocus={handleFocus}
@@ -63,8 +81,9 @@ const LabeledInput = ({
         ref={inputRef}
         disabled={disabled}
       />
+      {RightIcon && <RightIcon />}
     </StyledInputContainer>
   );
 };
 
-export default LabeledInput;
+export default CustomField;

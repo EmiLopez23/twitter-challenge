@@ -17,6 +17,7 @@ import { StyledContainer } from "../common/Container";
 import { StyledIconContainer } from "./IconContainer";
 import { StyledNavItemsContainer } from "./navItem/NavItemsContainer";
 import { StyledP } from "../common/text";
+import { ROUTES } from "../../util/Constants";
 
 const NavBar = () => {
   const location = useLocation();
@@ -41,7 +42,7 @@ const NavBar = () => {
     <StyledNavBarContainer>
       <StyledContainer flex={1}>
         <StyledIconContainer>
-          <LogoIcon />
+          <LogoIcon onClick={() => navigate(ROUTES.HOME)} />
         </StyledIconContainer>
         <StyledNavItemsContainer>
           <NavItem
