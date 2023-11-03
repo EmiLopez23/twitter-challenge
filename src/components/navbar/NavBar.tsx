@@ -35,7 +35,7 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    setLogoutOpen(!logoutOpen);
+    setLogoutOpen(prevState => !prevState);
   };
 
   return (
@@ -97,7 +97,7 @@ const NavBar = () => {
         gap={"8px"}
         alignItems={"center"}
       >
-        <LogoutPrompt show={logoutOpen} />
+        {logoutOpen && <LogoutPrompt onClose={()=>setLogoutOpen(false)}/>}
         <Avatar
           src={user.profilePicture ?? Icon}
           onClick={handleAvatarClick}
