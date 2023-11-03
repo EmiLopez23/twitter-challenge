@@ -79,7 +79,7 @@ const SignInPage = () => {
                   error={error}
                   name={"password"}
                 />
-                <p className={"error-message"}> {error && t("error.login")}</p>
+                {error && <p className={"error-message"}> {t("error.login")}</p>}
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <Button

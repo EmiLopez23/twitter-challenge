@@ -117,9 +117,9 @@ const SignUpPage = () => {
                   name="confirmPassword"
                   error={error}
                 />
-                <p className={"error-message"}>
-                  {error && t("error.register")}
-                </p>
+                {error && (
+                  <p className={"error-message"}>{t("error.register")}</p>
+                )}
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <Button
