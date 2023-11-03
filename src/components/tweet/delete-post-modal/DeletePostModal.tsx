@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { DeleteIcon } from "../../icon/Icon";
 import Modal from "../../modal/Modal";
 import Button from "../../button/Button";
@@ -9,6 +9,7 @@ import { ButtonType } from "../../button/StyledButton";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { Post } from "../../../service";
 import { StyledDeletePostModalContainer } from "./DeletePostModalContainer";
+import useOutsideAlerter from "../../../hooks/useOutsideAlerter";
 
 interface DeletePostModalProps {
   show: boolean;
@@ -26,6 +27,7 @@ export const DeletePostModal = ({
   const dispatch = useAppDispatch();
   const service = useHttpRequestService();
   const { t } = useTranslation();
+  const ref = useRef(null)
 
   const handleDelete = () => {
     try {
@@ -43,11 +45,14 @@ export const DeletePostModal = ({
     onClose();
   };
 
+  
+  useOutsideAlerter(ref, handleClose)
+
   return (
     <>
       {show && (
         <>
-          <StyledDeletePostModalContainer onClick={() => setShowModal(true)}>
+          <StyledDeletePostModalContainer onClick={() => setShowModal(true)} ref={ref}>
             <DeleteIcon />
             <p>{t("buttons.delete")}</p>
           </StyledDeletePostModalContainer>
