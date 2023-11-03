@@ -18,6 +18,7 @@ import ValidateInputWrapper from "../../../components/validate_input_wrapper/Val
 
 interface SignUpData {
   username: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -30,6 +31,7 @@ const SignUpPage = () => {
   const [error, setError] = useState(false);
   const initialValues: SignUpData = {
     username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -37,6 +39,7 @@ const SignUpPage = () => {
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required(t("error.required")),
+    name: Yup.string().required(t("error.required")),
     email: Yup.string()
       .email(t("error.email"))
       .required(t("error.required"))
@@ -86,6 +89,12 @@ const SignUpPage = () => {
                   placeholder={"Enter username..."}
                   title={t("input-params.username")}
                   name="username"
+                  error={error}
+                />
+                <ValidateInputWrapper
+                  placeholder={"Enter name..."}
+                  title={t("input-params.name")}
+                  name="name"
                   error={error}
                 />
                 <ValidateInputWrapper
