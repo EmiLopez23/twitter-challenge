@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import { useTranslation } from "react-i18next";
 import { User } from "../../service";
-import { ButtonType } from "../../components/button/StyledButton";
+import { ButtonSize, ButtonType } from "../../components/button/StyledButton";
 import { useAppSelector } from "../../redux/hooks";
 import { useHttpRequestService } from "../../service/HttpRequestService";
 import Button from "../../components/button/Button";
@@ -126,7 +126,7 @@ const ProfilePage = () => {
                 />
                 <Button
                   buttonType={handleButtonType().component}
-                  size={"100px"}
+                  size={ButtonSize.SMALL}
                   onClick={handleButtonAction}
                   text={handleButtonType().text}
                 />
@@ -147,7 +147,7 @@ const ProfilePage = () => {
                 <Button
                   buttonType={modalValues.type}
                   text={modalValues.buttonText}
-                  size={"MEDIUM"}
+                  size={ButtonSize.MEDIUM}
                   onClick={handleSubmit}
                 />
               }

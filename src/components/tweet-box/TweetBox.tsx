@@ -7,7 +7,7 @@ import ImageContainer from "../tweet/tweet-image/ImageContainer";
 import { BackArrowIcon } from "../icon/Icon";
 import ImageInput from "../common/ImageInput";
 import { useTranslation } from "react-i18next";
-import { ButtonType } from "../button/StyledButton";
+import { ButtonSize, ButtonType } from "../button/StyledButton";
 import { StyledTweetBoxContainer } from "./TweetBoxContainer";
 import { StyledContainer } from "../common/Container";
 import { StyledButtonContainer } from "./ButtonContainer";
@@ -75,7 +75,7 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
           <Button
             text={"Tweet"}
             buttonType={ButtonType.DEFAULT}
-            size={"SMALL"}
+            size={ButtonSize.SMALL}
             onClick={handleSubmit}
             disabled={content.length === 0}
           />
@@ -102,7 +102,7 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
             <Button
               text={"Tweet"}
               buttonType={ButtonType.DEFAULT}
-              size={"SMALL"}
+              size={ButtonSize.SMALL}
               onClick={handleSubmit}
               disabled={
                 content.length <= 0 ||

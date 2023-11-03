@@ -4,7 +4,8 @@ import { Author } from "../../service";
 import { useHttpRequestService } from "../../service/HttpRequestService";
 import { useTranslation } from "react-i18next";
 import { StyledSearchBarContainer } from "./SearchBarContainer";
-import { StyledSearchBarInput } from "./SearchBarInput";
+import CustomField from "../input-element/CustomField";
+import { InputContainerMode } from "../input-element/StyledInputContainer";
 
 export const SearchBar = () => {
   const [results, setResults] = useState<Author[]>([]);
@@ -21,7 +22,7 @@ export const SearchBar = () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
       try {
-        if(inputQuery.length === 0) return;
+        if (inputQuery.length === 0) return;
         setResults(await service.searchUsers(inputQuery, 4, 0));
       } catch (error) {
         console.log(error);
@@ -31,7 +32,10 @@ export const SearchBar = () => {
 
   return (
     <StyledSearchBarContainer>
-      <StyledSearchBarInput
+      <CustomField
+        mode={InputContainerMode.ROUNDED}
+        required={false}
+        name="search"
         onChange={handleChange}
         value={query}
         placeholder={t("placeholder.search")}
