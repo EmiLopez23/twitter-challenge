@@ -5,7 +5,7 @@ import Button from "../../button/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SwitchButton from "../../switch/SwitchButton";
-import { ButtonType } from "../../button/StyledButton";
+import { ButtonSize, ButtonType } from "../../button/StyledButton";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { StyledPromptContainer } from "./PromptContainer";
 import { StyledContainer } from "../../common/Container";
@@ -82,7 +82,7 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
           <Button
             buttonType={ButtonType.FOLLOW}
             text={t("buttons.logout")}
-            size={"MEDIUM"}
+            size={ButtonSize.MEDIUM}
             onClick={handleLogout}
           />
         }
