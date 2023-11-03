@@ -12,6 +12,7 @@ import { StyledContainer } from "../../common/Container";
 import { StyledP } from "../../common/text";
 import { setToken } from "../../../redux/user";
 import { ROUTES } from "../../../util/Constants";
+import { Overlay } from "../../overlay/Overlay";
 
 interface LogoutPromptProps {
   show: boolean;
@@ -48,6 +49,8 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
   return (
     <>
       {showPrompt && (
+        <>
+        <Overlay onClick={() => setShowPrompt(false)} />
         <StyledPromptContainer>
           <StyledContainer
             flexDirection={"row"}
@@ -68,6 +71,7 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
             }`}</StyledP>
           </StyledContainer>
         </StyledPromptContainer>
+        </>
       )}
       <Modal
         show={showModal}
