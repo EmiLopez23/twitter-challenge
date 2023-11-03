@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Modal from "../../modal/Modal";
 import logo from "../../../assets/logo.png";
 import Button from "../../button/Button";
@@ -12,19 +12,22 @@ import { StyledContainer } from "../../common/Container";
 import { StyledP } from "../../common/text";
 import { setToken } from "../../../redux/user";
 import { ROUTES } from "../../../util/Constants";
-import { Overlay } from "../../overlay/Overlay";
+import useOutsideAlerter from "../../../hooks/useOutsideAlerter";
 
 interface LogoutPromptProps {
-  show: boolean;
+  onClose: () => void;
 }
 
-const LogoutPrompt = ({ show }: LogoutPromptProps) => {
-  const [showPrompt, setShowPrompt] = useState<boolean>(show);
+const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const ref = useRef(null);
+
+  useOutsideAlerter(ref, onClose);
+
   const handleClick = () => {
     setShowModal(true);
   };
@@ -38,41 +41,32 @@ const LogoutPrompt = ({ show }: LogoutPromptProps) => {
   };
 
   const handleLogout = () => {
-    dispatch(setToken(""))
+    dispatch(setToken(""));
     navigate(ROUTES.SIGN_IN);
   };
 
-  useEffect(() => {
-    setShowPrompt(show);
-  }, [show]);
-
   return (
     <>
-      {showPrompt && (
-        <>
-        <Overlay onClick={() => setShowPrompt(false)} />
-        <StyledPromptContainer>
-          <StyledContainer
-            flexDirection={"row"}
-            gap={"16px"}
-            borderBottom={"1px solid #ebeef0"}
-            padding={"16px"}
-            alignItems={"center"}
-          >
-            <StyledP primary>Es:</StyledP>
-            <SwitchButton
-              checked={i18n.language === "es"}
-              onChange={handleLanguageChange}
-            />
-          </StyledContainer>
-          <StyledContainer onClick={handleClick} alignItems={"center"}>
-            <StyledP primary>{`${t("buttons.logout")} @${
-              user.username
-            }`}</StyledP>
-          </StyledContainer>
-        </StyledPromptContainer>
-        </>
-      )}
+      <StyledPromptContainer ref={ref}>
+        <StyledContainer
+          flexDirection={"row"}
+          gap={"16px"}
+          borderBottom={"1px solid #ebeef0"}
+          padding={"16px"}
+          alignItems={"center"}
+        >
+          <StyledP primary>Es:</StyledP>
+          <SwitchButton
+            checked={i18n.language === "es"}
+            onChange={handleLanguageChange}
+          />
+        </StyledContainer>
+        <StyledContainer onClick={handleClick} alignItems={"center"}>
+          <StyledP primary>{`${t("buttons.logout")} @${
+            user.username
+          }`}</StyledP>
+        </StyledContainer>
+      </StyledPromptContainer>
       <Modal
         show={showModal}
         text={t("modal-content.logout")}
