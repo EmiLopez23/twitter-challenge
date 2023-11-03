@@ -89,24 +89,12 @@ const ProfilePage = () => {
   const getProfileData = async () => {
     service
       .getProfile(id)
-      .then((res) => {
-        setProfile(res);
-        setFollowing(
-          res
-            ? res?.followers.some((follower: User) => follower.id === user.id)
-            : false
-        );
+      .then(({user, isFollowing}) => {
+        setProfile({...user, isFollowing});
+        setFollowing(isFollowing);
       })
-      .catch(() => {
-        service
-          .getProfileView(id)
-          .then((res) => {
-            setProfile(res);
-            setFollowing(false);
-          })
-          .catch((error2) => {
-            console.log(error2);
-          });
+      .catch((error) => {
+        console.log(error)
       });
   };
 
@@ -125,7 +113,7 @@ const ProfilePage = () => {
               maxHeight={"212px"}
               padding={"16px"}
             >
-              <StyledH5>{profile?.name}</StyledH5>
+              <StyledH5>{profile.name}</StyledH5>
               <StyledContainer
                 alignItems={"center"}
                 padding={"24px 0 0 0"}
@@ -145,7 +133,7 @@ const ProfilePage = () => {
               </StyledContainer>
             </StyledContainer>
             <StyledContainer width={"100%"}>
-              {profile.followers ? (
+              {!profile.private || (profile.private && profile.isFollowing) ? (
                 <ProfileFeed />
               ) : (
                 <StyledH5>Private account</StyledH5>

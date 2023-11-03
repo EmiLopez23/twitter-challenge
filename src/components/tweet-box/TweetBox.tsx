@@ -13,6 +13,7 @@ import { StyledContainer } from "../common/Container";
 import { StyledButtonContainer } from "./ButtonContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 interface TweetBoxProps {
   parentId?: string;
@@ -26,7 +27,7 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
   const [images, setImages] = useState<File[]>([]);
   const [imagesPreview, setImagesPreview] = useState<string[]>([]);
 
-  const { user, length, query } = useSelector((state: RootState) => state.user);
+  const { user, length, query } = useAppSelector((state) => state.user);
   const httpService = useHttpRequestService();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -36,11 +37,12 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
   };
   const handleSubmit = async () => {
     try {
+      await httpService.createPost({ content, images, parentId });
       setContent("");
       setImages([]);
       setImagesPreview([]);
       dispatch(setLength(length + 1));
-      const posts = await httpService.getPosts(length + 1, query);
+      const posts = parentId ? await httpService.getCommentsByPostId(parentId, length + 1) : await httpService.getPosts(query, length + 1);
       dispatch(updateFeed(posts));
       close && close();
     } catch (e) {

@@ -1,5 +1,4 @@
 export interface SingUpData {
-  name: string;
   password: string;
   email: string;
   username: string;
@@ -25,8 +24,11 @@ export interface Post {
   createdAt: Date;
   authorId: string;
   author: Author;
-  reactions: Reaction[];
-  comments: Post[];
+  qtyComments: number;
+  qtyLikes: number;
+  qtyRetweets: number;
+  liked: boolean;
+  retweeted: boolean;
 }
 
 export interface Reaction {
@@ -44,7 +46,8 @@ export interface Author {
   username: string;
   profilePicture?: string;
   private: boolean;
-  createdAt: Date;
+  createdAt?: Date;
+  isFollowing?: boolean;
 }
 
 export interface User {
@@ -57,6 +60,7 @@ export interface User {
   followers: Author[];
   following: Author[];
   posts: Post[];
+  isFollowing?: boolean;
 }
 
 export interface MessageDTO {

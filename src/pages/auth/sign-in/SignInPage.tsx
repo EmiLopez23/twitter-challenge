@@ -9,6 +9,8 @@ import Button from "../../../components/button/Button";
 import { ButtonType } from "../../../components/button/StyledButton";
 import { StyledH3 } from "../../../components/common/text";
 import { ROUTES } from "../../../util/Constants";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setToken } from "../../../redux/user";
 
 const SignInPage = () => {
   const [username, setUsername] = useState("");
@@ -16,14 +18,18 @@ const SignInPage = () => {
   const [error, setError] = useState(false);
 
   const httpRequestService = useHttpRequestService();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleSubmit = async() => {
-    httpRequestService
-      .signIn({ username, password })
-      .then(() => navigate(ROUTES.HOME))
-      .catch(() => setError(true));
+  const handleSubmit = async () => {
+    try {
+      const { token } = await httpRequestService.signIn({ username, password });
+      dispatch(setToken(token));
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      setError(true);
+    }
   };
 
   return (

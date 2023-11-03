@@ -12,16 +12,15 @@ const HomePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const query = useAppSelector((state) => state.user.query);
+  const token = useAppSelector((state) => state.user.token);
   const service = useHttpRequestService();
 
   const handleSetUser = async () => {
     try {
       const user = await service.me();
-      const data = await service.getPosts(query);
       dispatch(setUser(user));
-      dispatch(updateFeed(data));
     } catch (e) {
-      navigate("/sign-in");
+      console.log(e);
     }
   };
 

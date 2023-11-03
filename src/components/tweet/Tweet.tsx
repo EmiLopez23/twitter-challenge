@@ -25,27 +25,16 @@ const Tweet = ({ post }: TweetProps) => {
   const service = useHttpRequestService();
   const navigate = useNavigate();
 
-  const getCountByType = (type: string): number => {
-    return actualPost.reactions.filter((r) => r.type === type).length ?? 0;
-  };
-
   const handleReaction = async (type: string) => {
-    const reacted = actualPost.reactions.find(
-      (r) => r.type === type && r.userId === user.id
-    );
+    const reacted = type === "LIKE" ? actualPost.liked : actualPost.retweeted;
     if (reacted) {
-      await service.deleteReaction(reacted.id);
+      await service.deleteReaction(actualPost.id, type);
     } else {
       await service.createReaction(actualPost.id, type);
     }
+
     const newPost = await service.getPostById(post.id);
     setActualPost(newPost);
-  };
-
-  const hasReactedByType = (type: string): boolean => {
-    return actualPost.reactions.some(
-      (r) => r.type === type && r.userId === user.id
-    );
   };
 
   return (
@@ -92,7 +81,7 @@ const Tweet = ({ post }: TweetProps) => {
       <StyledReactionsContainer>
         <Reaction
           img={IconType.CHAT}
-          count={actualPost.comments.length}
+          count={actualPost.qtyComments}
           reactionFunction={() =>
             window.innerWidth > 600
               ? setShowCommentModal(true)
@@ -103,17 +92,17 @@ const Tweet = ({ post }: TweetProps) => {
         />
         <Reaction
           img={IconType.RETWEET}
-          count={getCountByType("RETWEET")}
+          count={actualPost.qtyRetweets}
           reactionFunction={() => handleReaction("RETWEET")}
           increment={1}
-          reacted={hasReactedByType("RETWEET")}
+          reacted={actualPost.retweeted}
         />
         <Reaction
           img={IconType.LIKE}
-          count={getCountByType("LIKE")}
+          count={actualPost.qtyLikes}
           reactionFunction={() => handleReaction("LIKE")}
           increment={1}
-          reacted={hasReactedByType("LIKE")}
+          reacted={actualPost.liked}
         />
       </StyledReactionsContainer>
       <CommentModal
