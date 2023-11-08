@@ -1,10 +1,11 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { StyledBlurredBackground } from "../common/BlurredBackground";
 import Button from "../button/Button";
 import { ButtonSize, ButtonType } from "../button/StyledButton";
 import { StyledModalContainer } from "./ModalContainer";
 import { StyledContainer } from "../common/Container";
 import { StyledH5, StyledP } from "../common/text";
+import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 
 interface ModalProps {
   show: boolean;
@@ -23,11 +24,13 @@ const Modal = ({
   img,
   title,
 }: ModalProps) => {
+  const wrapperRef = useRef(null)
+  useOutsideAlerter(wrapperRef, onClose)
   return (
     <>
       {show && (
-        <StyledBlurredBackground onClick={onClose}>
-          <StyledModalContainer>
+        <StyledBlurredBackground>
+          <StyledModalContainer ref={wrapperRef}>
             <StyledContainer alignItems={"center"} justifyContent={"center"}>
               {img && (
                 <img src={img} alt={"modal"} width={"32px"} height={"26px"} />
