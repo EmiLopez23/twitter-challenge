@@ -18,9 +18,8 @@ export const useGetFeed = () => {
       setLoading(true);
       setError(false);
       service.getPosts(query).then((res) => {
-        const updatedPosts = Array.from(new Set([...posts, ...res]));
-        dispatch(updateFeed(updatedPosts));
-        dispatch(setLength(updatedPosts.length));
+        dispatch(updateFeed(res));
+        dispatch(setLength(res.length));
         setLoading(false);
       });
     } catch (e) {
