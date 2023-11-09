@@ -49,10 +49,10 @@ export const DeletePostModal = ({
   useOutsideAlerter(ref, handleClose)
 
   return (
-    <>
+    <div ref={ref}>
       {show && (
         <>
-          <StyledDeletePostModalContainer onClick={() => setShowModal(true)} ref={ref}>
+          <StyledDeletePostModalContainer onClick={() => setShowModal(true)}>
             <DeleteIcon />
             <p>{t("buttons.delete")}</p>
           </StyledDeletePostModalContainer>
@@ -72,7 +72,7 @@ export const DeletePostModal = ({
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 

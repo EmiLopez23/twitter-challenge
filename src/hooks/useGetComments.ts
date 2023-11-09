@@ -7,9 +7,12 @@ interface UseGetCommentsProps {
   postId: string;
 }
 
+const COMMENT_LIMIT = 10;
+
 export const useGetComments = ({ postId }: UseGetCommentsProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const posts = useAppSelector((state) => state.user.feed);
 
   const dispatch = useAppDispatch();
@@ -17,15 +20,14 @@ export const useGetComments = ({ postId }: UseGetCommentsProps) => {
   const service = useHttpRequestService();
 
   useEffect(() => {
+    setHasMore(true);
     try {
       setLoading(true);
       setError(false);
-      service.getCommentsByPostId(postId).then((res) => {
-        const updatedPosts = Array.from(new Set([...posts, ...res])).filter(
-          (post) => post.parentId === postId
-        );
-        dispatch(updateFeed(updatedPosts));
-        dispatch(setLength(updatedPosts.length));
+      service.getCommentsByPostId(postId, COMMENT_LIMIT).then((res) => {
+        dispatch(updateFeed(res));
+        dispatch(setLength(res.length));
+        if (!res.length) { setHasMore(false) };
         setLoading(false);
       });
     } catch (e) {
@@ -34,5 +36,23 @@ export const useGetComments = ({ postId }: UseGetCommentsProps) => {
     }
   }, [postId]);
 
-  return { posts, loading, error };
+  const loadMore = async () => {
+    if (posts.length < COMMENT_LIMIT) {
+      setHasMore(false);
+      return;
+    };
+    setLoading(true);
+    try {
+      const morePosts = await service.getCommentsByPostId(postId, COMMENT_LIMIT, posts.length)
+      if (!morePosts.length || morePosts.length < COMMENT_LIMIT) setHasMore(false);
+      dispatch(updateFeed([...posts, ...morePosts]))
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { posts, loading, error, hasMore, loadMore };
 };

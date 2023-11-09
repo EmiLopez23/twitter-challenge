@@ -3,23 +3,24 @@ import { Post } from "../../service";
 import { StyledContainer } from "../common/Container";
 import Tweet from "../tweet/Tweet";
 import Loader from "../loader/Loader";
+import InfiniteScroll from "../infinite-scroll/InfiniteScroll";
 
 interface FeedProps {
   posts: Post[];
   loading: boolean;
+  loadMore: () => Promise<void>;
+  hasMore: boolean;
 }
 
-const Feed = ({ posts, loading }: FeedProps) => {
+const Feed = ({ posts, loading, loadMore, hasMore }: FeedProps) => {
   return (
-    <StyledContainer width={"100%"} alignItems={"center"}>
-      {posts
-        .filter((post, index, self) => {
-          return self.findIndex((p) => p.id === post.id) === index;
-        })
-        .map((post: Post) => (
+    <StyledContainer alignItems="center">
+      {!posts.length && !loading && <p>No posts found</p>}
+      <InfiniteScroll loadMore={loadMore} hasNext={hasMore}>
+        {posts.map((post: Post) => (
           <Tweet key={post.id} post={post} />
         ))}
-      {loading && <Loader />}
+      </InfiniteScroll>
     </StyledContainer>
   );
 };
