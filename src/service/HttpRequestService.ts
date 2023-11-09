@@ -58,8 +58,8 @@ const httpRequestService = {
       return res.data;
     }
   },
-  getPosts: async (query: string, limit?: number, after?: string) => { //Replace getPaginatedPosts for this
-    const res = await api.get(`post/${query}`, { params: { limit, after } });
+  getPosts: async (query: string, limit?: number, skip?: number) => { //Replace getPaginatedPosts for this
+    const res = await api.get(`post/${query}`, { params: { limit, skip } });
     if (res.status === 200) {
       return res.data;
     }
@@ -139,11 +139,11 @@ const httpRequestService = {
       return res.data;
     }
   },
-  getPostsFromProfile: async (id: string, limit?: number, after?: string) => { //Replace getPaginatedPostsFromProfile for this
+  getPostsFromProfile: async (id: string, limit?: number, skip?: number) => { //Replace getPaginatedPostsFromProfile for this
     const res = await api.get(`/post/by_user/${id}`, {
       params: {
         limit,
-        after,
+        skip,
       },
     });
 
@@ -200,11 +200,11 @@ const httpRequestService = {
     await api.delete(`post/${id}`);
   },
 
-  getCommentsByPostId: async (id: string, limit?: number, after?: string) => { //Replace getPaginatedCommentsByPostId for this
+  getCommentsByPostId: async (id: string, limit?: number, skip?: number) => { //Replace getPaginatedCommentsByPostId for this
     const res = await api.get(`comment/${id}`, {
       params: {
         limit,
-        after,
+        skip,
       },
     });
     if (res.status === 200) {
