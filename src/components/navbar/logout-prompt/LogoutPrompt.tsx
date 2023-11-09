@@ -46,8 +46,8 @@ const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
   };
 
   return (
-    <>
-      <StyledPromptContainer ref={ref}>
+    <div ref={ref}>
+      <StyledPromptContainer>
         <StyledContainer
           flexDirection={"row"}
           gap={"16px"}
@@ -82,7 +82,7 @@ const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
         }
         onClose={() => setShowModal(false)}
       />
-    </>
+    </div>
   );
 };
 
