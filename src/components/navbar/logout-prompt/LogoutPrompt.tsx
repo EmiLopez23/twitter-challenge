@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import Modal from "../../modal/Modal";
 import logo from "../../../assets/logo.png";
 import Button from "../../button/Button";
@@ -24,9 +25,7 @@ const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const ref = useRef(null);
-
-  useOutsideAlerter(ref, onClose);
+  const alerter = useOutsideAlerter(onClose);
 
   const handleClick = () => {
     setShowModal(true);
@@ -46,14 +45,15 @@ const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
   };
 
   return (
-    <div ref={ref}>
-      <StyledPromptContainer>
+    <>
+      <StyledPromptContainer ref={showModal ? null : alerter}>
         <StyledContainer
           flexDirection={"row"}
           gap={"16px"}
           borderBottom={"1px solid #ebeef0"}
           padding={"16px"}
           alignItems={"center"}
+          justifyContent="center"
         >
           <StyledP primary>Es:</StyledP>
           <SwitchButton
@@ -67,22 +67,22 @@ const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
           }`}</StyledP>
         </StyledContainer>
       </StyledPromptContainer>
-      <Modal
-        show={showModal}
-        text={t("modal-content.logout")}
-        img={logo}
-        title={t("modal-title.logout")}
-        acceptButton={
-          <Button
-            buttonType={ButtonType.FOLLOW}
-            text={t("buttons.logout")}
-            size={ButtonSize.MEDIUM}
-            onClick={handleLogout}
-          />
-        }
-        onClose={() => setShowModal(false)}
-      />
-    </div>
+      {showModal &&
+          <Modal
+            text={t("modal-content.logout")}
+            img={logo}
+            title={t("modal-title.logout")}
+            acceptButton={
+              <Button
+                buttonType={ButtonType.FOLLOW}
+                text={t("buttons.logout")}
+                size={ButtonSize.MEDIUM}
+                onClick={handleLogout}
+              />
+            }
+            onClose={() => setShowModal(false)}
+          />}
+    </>
   );
 };
 

@@ -10,24 +10,19 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { Post } from "../../../service";
 import { StyledDeletePostModalContainer } from "./DeletePostModalContainer";
 import useOutsideAlerter from "../../../hooks/useOutsideAlerter";
+import { createPortal } from "react-dom";
 
 interface DeletePostModalProps {
-  show: boolean;
   onClose: () => void;
   id: string;
 }
 
-export const DeletePostModal = ({
-  show,
-  id,
-  onClose,
-}: DeletePostModalProps) => {
+export const DeletePostModal = ({ id, onClose }: DeletePostModalProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const feed = useAppSelector((state) => state.user.feed);
   const dispatch = useAppDispatch();
   const service = useHttpRequestService();
   const { t } = useTranslation();
-  const ref = useRef(null)
 
   const handleDelete = () => {
     try {
@@ -45,34 +40,35 @@ export const DeletePostModal = ({
     onClose();
   };
 
-  
-  useOutsideAlerter(ref, handleClose)
+  const ref = useOutsideAlerter(handleClose);
 
   return (
-    <div ref={ref}>
-      {show && (
-        <>
-          <StyledDeletePostModalContainer onClick={() => setShowModal(true)}>
-            <DeleteIcon />
-            <p>{t("buttons.delete")}</p>
-          </StyledDeletePostModalContainer>
-          <Modal
-            title={t("modal-title.delete-post") + "?"}
-            text={t("modal-content.delete-post")}
-            show={showModal}
-            onClose={handleClose}
-            acceptButton={
-              <Button
-                text={t("buttons.delete")}
-                buttonType={ButtonType.DELETE}
-                size={ButtonSize.MEDIUM}
-                onClick={handleDelete}
-              />
-            }
-          />
-        </>
+    <>
+      <StyledDeletePostModalContainer
+        onClick={() => {
+          setShowModal(true);
+        }}
+        ref={showModal ? null : ref}
+      >
+        <DeleteIcon />
+        <p>{t("buttons.delete")}</p>
+      </StyledDeletePostModalContainer>
+      {showModal && (
+        <Modal
+          title={t("modal-title.delete-post") + "?"}
+          text={t("modal-content.delete-post")}
+          onClose={handleClose}
+          acceptButton={
+            <Button
+              text={t("buttons.delete")}
+              buttonType={ButtonType.DELETE}
+              size={ButtonSize.MEDIUM}
+              onClick={handleDelete}
+            />
+          }
+        />
       )}
-    </div>
+    </>
   );
 };
 
