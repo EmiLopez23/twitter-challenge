@@ -15,6 +15,7 @@ const ContentContainer = () => {
           width={"100%"}
           padding={"16px"}
           borderBottom={"1px solid #ebeef0"}
+          height={"fit-content"}
         >
           <TweetBox />
         </StyledContainer>

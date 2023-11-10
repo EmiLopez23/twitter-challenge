@@ -10,12 +10,11 @@ import ImageContainer from "../../tweet/tweet-image/ImageContainer";
 
 interface CommentModalProps {
   post: Post;
-  show: boolean;
   onClose: () => void;
 }
-const CommentModal = ({ post, show, onClose }: CommentModalProps) => {
+const CommentModal = ({ post, onClose }: CommentModalProps) => {
   return (
-    <PostModal show={show} onClose={onClose}>
+    <PostModal onClose={onClose}>
       <StyledContainer gap={"16px"}>
         <AuthorData
           id={post.authorId}
