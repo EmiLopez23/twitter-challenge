@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledPromptContainer = styled.div`
   display: flex;
-  min-width: 304px;
+  min-width: 300px;
   padding: 16px;
   flex-direction: column;
   justify-content: center;
@@ -14,8 +14,8 @@ export const StyledPromptContainer = styled.div`
   border-radius: 16px;
   border: 1px solid ${(props) => props.theme.colors.containerLine};
   position: absolute;
-  top: -300%;
   transition: 0.3s ease-in-out;
+  bottom: 130%;
 
   &:hover {
     cursor: pointer;

@@ -89,12 +89,12 @@ const ProfilePage = () => {
   const getProfileData = async () => {
     service
       .getProfile(id)
-      .then(({user, isFollowing}) => {
-        setProfile({...user, isFollowing});
+      .then(({ user, isFollowing }) => {
+        setProfile({ ...user, isFollowing });
         setFollowing(isFollowing);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -105,6 +105,7 @@ const ProfilePage = () => {
         borderRight={"1px solid #ebeef0"}
         flex={2}
         maxWidth={"600px"}
+        overflow="auto"
       >
         {profile && (
           <>
@@ -139,22 +140,23 @@ const ProfilePage = () => {
                 <StyledH5>Private account</StyledH5>
               )}
             </StyledContainer>
-            <Modal
-              show={showModal}
-              text={modalValues.text}
-              title={modalValues.title}
-              acceptButton={
-                <Button
-                  buttonType={modalValues.type}
-                  text={modalValues.buttonText}
-                  size={ButtonSize.MEDIUM}
-                  onClick={handleSubmit}
-                />
-              }
-              onClose={() => {
-                setShowModal(false);
-              }}
-            />
+            {showModal && (
+              <Modal
+                text={modalValues.text}
+                title={modalValues.title}
+                acceptButton={
+                  <Button
+                    buttonType={modalValues.type}
+                    text={modalValues.buttonText}
+                    size={ButtonSize.MEDIUM}
+                    onClick={handleSubmit}
+                  />
+                }
+                onClose={() => {
+                  setShowModal(false);
+                }}
+              />
+            )}
           </>
         )}
       </StyledContainer>

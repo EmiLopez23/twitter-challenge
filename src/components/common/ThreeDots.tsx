@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledContainer } from "./Container";
-import { StyledDot } from "./Dot";
+import ThreeDotsSVG from "../../resources/ThreeDots";
 
 const ThreeDots = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -8,17 +8,15 @@ const ThreeDots = ({ onClick }: { onClick: () => void }) => {
       flexDirection={"row"}
       gap={"2px"}
       alignItems={"center"}
-      justifyContent={"center"}
-      maxWidth={"20px"}
-      maxHeight={"20px"}
-      padding={"2px"}
-      borderRadius={"50%"}
+      justifyContent="center"
+      width={"fit-content"}
+      height={"fit-content"}
+      padding={"0 2px"}
+      borderRadius={"999px"}
       hoverable
       onClick={onClick}
     >
-      <StyledDot />
-      <StyledDot />
-      <StyledDot />
+      <ThreeDotsSVG width={20} height={20} style={{ borderRadius: "999px" }} />
     </StyledContainer>
   );
 };
