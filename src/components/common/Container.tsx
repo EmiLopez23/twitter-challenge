@@ -49,4 +49,6 @@ export const StyledScrollableContainer = styled(StyledContainer)`
   scrollbar-width: none;
 `;
 
-export const StyledOverflowContainer = styled(StyledContainer)``;
+export const StyledOverflowContainer = styled(StyledContainer)`
+  overflow: hidden;
+`;

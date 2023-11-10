@@ -23,11 +23,12 @@ const TweetImage = ({
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
-    <StyledContainer maxHeight={`${100}%`}>
+    <StyledContainer maxHeight={`${100}%`} maxWidth={400}>
       <StyledOverflowContainer
         maxWidth={"100%"}
         borderRadius={"16px"}
         alignItems={"flex-end"}
+        
       >
         {removable && (
           <StyledRemoveIconContainer>
