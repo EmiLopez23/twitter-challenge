@@ -35,7 +35,7 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    setLogoutOpen(prevState => !prevState);
+    setLogoutOpen((prevState) => !prevState);
   };
 
   return (
@@ -83,12 +83,13 @@ const NavBar = () => {
             }}
           ></Button>
         </StyledContainer>
-        <TweetModal
-          open={tweetModalOpen}
-          onClose={() => {
-            setTweetModalOpen(false);
-          }}
-        />
+        {tweetModalOpen && (
+          <TweetModal
+            onClose={() => {
+              setTweetModalOpen(false);
+            }}
+          />
+        )}
       </StyledContainer>
       <StyledContainer
         flex={1}
@@ -97,7 +98,7 @@ const NavBar = () => {
         gap={"8px"}
         alignItems={"center"}
       >
-        {logoutOpen && <LogoutPrompt onClose={()=>setLogoutOpen(false)}/>}
+        {logoutOpen && <LogoutPrompt onClose={() => setLogoutOpen(false)} />}
         <Avatar
           src={user.profilePicture ?? Icon}
           onClick={handleAvatarClick}
@@ -110,7 +111,7 @@ const NavBar = () => {
           alignItems={"center"}
         >
           <StyledContainer padding={"4px 0"} gap={"4px"}>
-            <StyledP primary>{user.name ?? "Name"}</StyledP>  
+            <StyledP primary>{user.name ?? "Name"}</StyledP>
             <StyledP primary={false}>{`@${user.username}`}</StyledP>
           </StyledContainer>
           <ThreeDots onClick={handleLogout} />

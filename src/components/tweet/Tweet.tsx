@@ -55,18 +55,19 @@ const Tweet = ({ post }: TweetProps) => {
         />
         {post.authorId === user.id && (
           <>
-            <DeletePostModal
-              show={showDeleteModal}
-              id={post.id}
-              onClose={() => {
-                setShowDeleteModal(false);
-              }}
-            />
             <ThreeDots
               onClick={() => {
                 setShowDeleteModal(!showDeleteModal);
               }}
             />
+            {showDeleteModal && (
+              <DeletePostModal
+                id={post.id}
+                onClose={() => {
+                  setShowDeleteModal(false);
+                }}
+              />
+            )}
           </>
         )}
       </StyledContainer>
@@ -105,11 +106,9 @@ const Tweet = ({ post }: TweetProps) => {
           reacted={actualPost.liked}
         />
       </StyledReactionsContainer>
-      <CommentModal
-        show={showCommentModal}
-        post={post}
-        onClose={() => setShowCommentModal(false)}
-      />
+      {showCommentModal && (
+        <CommentModal post={post} onClose={() => setShowCommentModal(false)} />
+      )}
     </StyledTweetContainer>
   );
 };
