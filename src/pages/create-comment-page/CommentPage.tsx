@@ -22,7 +22,7 @@ const CommentPage = () => {
   const [images, setImages] = useState<File[]>([]);
   const postId = useLocation().pathname.split("/")[3];
   const service = useHttpRequestService();
-  const { user, length, query } = useAppSelector((state) => state.user);
+  const { user, length, query } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 

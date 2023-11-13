@@ -9,8 +9,8 @@ export const useGetFeed = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const posts = useAppSelector((state) => state.user.feed);
-  const query = useAppSelector((state) => state.user.query);
+  const posts = useAppSelector((state) => state.feed);
+  const query = useAppSelector((state) => state.query);
 
   const dispatch = useAppDispatch();
 

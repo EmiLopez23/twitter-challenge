@@ -22,7 +22,7 @@ import { ROUTES } from "../../util/Constants";
 const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user);
   const [tweetModalOpen, setTweetModalOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const { t } = useTranslation();

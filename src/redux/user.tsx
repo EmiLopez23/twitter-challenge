@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LIMIT } from "../util/Constants";
 import { ChatDTO, Post, User } from "../service";
 
-type InitalStateType = {
+export type InitalStateType = {
   user: User;
   feed: Post[];
   query: string;
