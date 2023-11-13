@@ -23,7 +23,7 @@ const ProfilePage = () => {
     buttonText: "",
   });
 
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user);
 
   const id = useParams().id;
   const service = useHttpRequestService();

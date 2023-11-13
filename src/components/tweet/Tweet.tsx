@@ -21,7 +21,7 @@ const Tweet = ({ post }: TweetProps) => {
   const [actualPost, setActualPost] = useState<Post>(post);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showCommentModal, setShowCommentModal] = useState<boolean>(false);
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user);
   const service = useHttpRequestService();
   const navigate = useNavigate();
 

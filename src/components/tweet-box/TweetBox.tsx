@@ -27,7 +27,7 @@ const TweetBox = ({ parentId, close, mobile }: TweetBoxProps) => {
   const [images, setImages] = useState<File[]>([]);
   const [imagesPreview, setImagesPreview] = useState<string[]>([]);
 
-  const { user, length, query } = useAppSelector((state) => state.user);
+  const { user, length, query } = useAppSelector((state) => state);
   const httpService = useHttpRequestService();
   const dispatch = useDispatch();
   const { t } = useTranslation();

@@ -19,7 +19,7 @@ interface DeletePostModalProps {
 
 export const DeletePostModal = ({ id, onClose }: DeletePostModalProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const feed = useAppSelector((state) => state.user.feed);
+  const feed = useAppSelector((state) => state.feed);
   const dispatch = useAppDispatch();
   const service = useHttpRequestService();
   const { t } = useTranslation();

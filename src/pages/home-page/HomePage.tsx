@@ -11,8 +11,8 @@ import { StyledUserSuggestionContainer } from "./UserSeuggestionContainer";
 const HomePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const query = useAppSelector((state) => state.user.query);
-  const token = useAppSelector((state) => state.user.token);
+  const query = useAppSelector((state) => state.query);
+  const token = useAppSelector((state) => state.token);
   const service = useHttpRequestService();
 
   const handleSetUser = async () => {

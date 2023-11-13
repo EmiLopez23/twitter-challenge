@@ -16,7 +16,7 @@ import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../redux/hooks";
 
 const ProtectedRoute = () => {
-  const token = useAppSelector((state) => state.user.token);
+  const token = useAppSelector((state) => state.token);
   return token ? (
     <Outlet />
   ) : (
@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
 };
 
 const AuthRoute = () => {
-  const token = useAppSelector((state) => state.user.token);
+  const token = useAppSelector((state) => state.token);
   return token ? (
     <Navigate to={ROUTES.HOME} />
   ) : (

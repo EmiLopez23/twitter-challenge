@@ -21,7 +21,7 @@ interface LogoutPromptProps {
 
 const LogoutPrompt = ({ onClose }: LogoutPromptProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();

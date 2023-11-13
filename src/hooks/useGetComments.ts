@@ -13,7 +13,7 @@ export const useGetComments = ({ postId }: UseGetCommentsProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const posts = useAppSelector((state) => state.user.feed);
+  const posts = useAppSelector((state) => state.feed);
 
   const dispatch = useAppDispatch();
 

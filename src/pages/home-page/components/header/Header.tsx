@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { StyledHeaderContainer } from "./HeaderContainer";
 
 const Header = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user);
   const { t } = useTranslation();
 
   return (

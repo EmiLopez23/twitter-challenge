@@ -20,7 +20,7 @@ const FollowUserBox = ({
   username,
   id,
 }: FollowUserBoxProps) => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user);
   const service = useHttpRequestService();
   const { t } = useTranslation();
 
